@@ -1,0 +1,22 @@
+BoundaryLab generic nonideal opamp / bl-opamp-1.1
+.options reltol=1e-5 abstol=1e-12 vntol=1e-7
+Vin in 0 SIN(0 0.289911865471 55391.8298061)
+Bgm 0 dom I=max(-0.0022, min(0.0022, 0.0389557489045*(v(in)-v(fb))))
+Rdom dom 0 2567015.21116
+Cdom dom 0 1e-09 IC=0
+Baw dom 0 I=0.01*(max(0,v(dom)-4)+min(0,v(dom)+4))
+Brail drive 0 V=max(-4, min(4, v(dom)))
+Rout drive out 30
+Rload out 0 10000
+Cload out 0 10p
+Rf out fb 9000
+Rg fb 0 1000
+.control
+set noaskquit
+set wr_vecnames
+set wr_singlescale
+tran 8.20600179009e-08 0.000252744855135 0 8.20600179009e-08
+wrdata samples.tsv v(in) v(out) v(dom)
+quit
+.endc
+.end

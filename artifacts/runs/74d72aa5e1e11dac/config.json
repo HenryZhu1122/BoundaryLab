@@ -1,0 +1,22 @@
+{
+  "circuit": {
+    "kind": "amplifier",
+    "gain": 10,
+    "cutoff_hz": 20000,
+    "load_ohm": 10000,
+    "device": {
+      "name": "BL-01 / 通用低功耗模型",
+      "gbw_hz": 40000000.0,
+      "slew_v_us": 0.1,
+      "swing_v": 12.0,
+      "open_loop_gain": 100000,
+      "output_resistance_ohm": 30
+    }
+  },
+  "experiment": {
+    "frequency_hz": 8718.801577909002,
+    "amplitude_v": 0.021033712755354497
+  },
+  "refinement": 1,
+  "model_version": "bl-opamp-1.1"
+}

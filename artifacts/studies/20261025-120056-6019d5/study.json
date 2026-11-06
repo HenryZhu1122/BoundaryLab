@@ -1,0 +1,674 @@
+{
+  "id": "20261025-120056-6019d5",
+  "created_at": "2026-10-25T04:00:56.635169+00:00",
+  "status": "completed",
+  "phase": "研究完成",
+  "request": {
+    "purpose": "benchmark",
+    "circuit": {
+      "kind": "amplifier",
+      "gain": 40.0,
+      "cutoff_hz": 20000,
+      "load_ohm": 10000,
+      "device": {
+        "name": "BL-01 / 通用低功耗模型",
+        "gbw_hz": 1500000.0,
+        "slew_v_us": 0.5,
+        "swing_v": 4,
+        "open_loop_gain": 100000,
+        "output_resistance_ohm": 30
+      }
+    },
+    "contract": {
+      "frequency_min_hz": 300.0,
+      "frequency_max_hz": 100000.0,
+      "amplitude_min_v": 0.002,
+      "amplitude_max_v": 0.15,
+      "gain_error_limit": 0.05,
+      "distortion_limit": 0.03
+    },
+    "mode": "deepseek",
+    "budget": 8,
+    "question": "在冻结输入域和8次仿真预算内查找反例，并使用对照实验区分可能的失效机制。不要修改验收条件。",
+    "auto_repair": false,
+    "build_map": false
+  },
+  "events": [
+    {
+      "seq": 1,
+      "time": "2026-10-25T04:00:56.635169+00:00",
+      "kind": "start",
+      "title": "研究启动",
+      "body": "在冻结输入域和8次仿真预算内查找反例，并使用对照实验区分可能的失效机制。不要修改验收条件。",
+      "source": "deepseek",
+      "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "29c837684ea33fd26bd668ba7dec6a83e0a12a45bd314dcd5f62fce28bac53ff"
+    },
+    {
+      "seq": 2,
+      "time": "2026-10-25T04:00:56.638174+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "建立后续对照的参考，结果由仿真判定。",
+      "plan": {
+        "hypothesis": "标称可用性",
+        "prediction": "先确认小信号基线；若失败，将据此调整调查方向。",
+        "rationale": "建立后续对照的参考，结果由仿真判定。",
+        "frequency_hz": 1000.0,
+        "amplitude_v": 0.02
+      },
+      "source": "baseline",
+      "previous_hash": "29c837684ea33fd26bd668ba7dec6a83e0a12a45bd314dcd5f62fce28bac53ff",
+      "hash": "c2d585e3a6b4e7bbbca677ed3d803c28e946b10326fa74f3a0be89e668fd5d13"
+    },
+    {
+      "seq": 3,
+      "time": "2026-10-25T04:00:56.647173+00:00",
+      "kind": "measurement",
+      "title": "通过验收",
+      "body": "增益误差 0.08%，残差失真 0.00%",
+      "measurement": {
+        "id": "4e17a898bb516d84",
+        "experiment": {
+          "frequency_hz": 1000.0,
+          "amplitude_v": 0.02
+        },
+        "purpose": "标称基线",
+        "expected_gain": 40.0,
+        "measured_gain": 39.96692557123698,
+        "gain_error": 0.0008268607190755617,
+        "distortion": 3.040071193374169e-05,
+        "phase_deg": -1.5327408346753308,
+        "output_peak_v": 0.7993510680459905,
+        "rail_occupancy": 0.0,
+        "slew_utilization": 0.010075579367200627,
+        "passed": true,
+        "margin": 0.9834627856184888
+      },
+      "source": "ngspice",
+      "prediction_match": null,
+      "previous_hash": "c2d585e3a6b4e7bbbca677ed3d803c28e946b10326fa74f3a0be89e668fd5d13",
+      "hash": "8c81a1eea061259108d4dc4f2dba617fdfa911eba5514898cd22689b1d87f89d"
+    },
+    {
+      "seq": 4,
+      "time": "2026-10-25T04:01:00.172392+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "频率上限+幅值下限，最纯粹地暴露带宽机制，避免大信号SR/饱和混淆。",
+      "plan": {
+        "hypothesis": "带宽/主极点：GBW=1.5MHz，闭环增益40，闭环带宽约37.5kHz；在100kHz小信号下增益应明显下降（约-8.5dB），相位滞后，失真小。",
+        "prediction": "预期 gain_error 远超 0.05（约0.6~0.7），distortion 很小（<0.01），slew_utilization 低，rail_occupancy=0。若 gain_error 仍<0.05 则带宽解释被反驳。",
+        "rationale": "频率上限+幅值下限，最纯粹地暴露带宽机制，避免大信号SR/饱和混淆。",
+        "expected_pass": false,
+        "frequency_hz": 100000.0,
+        "amplitude_v": 0.002
+      },
+      "source": "deepseek",
+      "previous_hash": "8c81a1eea061259108d4dc4f2dba617fdfa911eba5514898cd22689b1d87f89d",
+      "hash": "e687447a4c0e9b7311054541f84fcb38bde8e35e60c8c05ff761057e3fe842a6"
+    },
+    {
+      "seq": 5,
+      "time": "2026-10-25T04:01:00.185385+00:00",
+      "kind": "measurement",
+      "title": "发现失效",
+      "body": "增益误差 65.01%，残差失真 0.00%",
+      "measurement": {
+        "id": "65827d2e2af34032",
+        "experiment": {
+          "frequency_hz": 100000.0,
+          "amplitude_v": 0.002
+        },
+        "purpose": "带宽/主极点：GBW=1.5MHz，闭环增益40，闭环带宽约37.5kHz；在100kHz小信号下增益应明显下降（约-8.5dB），相位滞后，失真小。",
+        "expected_gain": 40.0,
+        "measured_gain": 13.99729063678316,
+        "gain_error": 0.650067734080421,
+        "distortion": 3.0394121086071678e-05,
+        "phase_deg": -69.51754098759685,
+        "output_peak_v": 0.02799548644933614,
+        "rail_occupancy": 0.0,
+        "slew_utilization": 0.035287161419071705,
+        "passed": false,
+        "margin": -12.001354681608419
+      },
+      "source": "ngspice",
+      "prediction_match": true,
+      "previous_hash": "e687447a4c0e9b7311054541f84fcb38bde8e35e60c8c05ff761057e3fe842a6",
+      "hash": "b42b16ebef588bec00140d2a433086500688ae5ae9c3747660ddc3ff4440fc06"
+    },
+    {
+      "seq": 6,
+      "time": "2026-10-25T04:01:00.191324+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "大信号中频，SR与饱和可能共存，先确认失效存在再分离。",
+      "plan": {
+        "hypothesis": "压摆率：SR=0.5V/us，20kHz、输出峰值6V需斜率 2π·20k·6≈754V/ms=0.754V/us > 0.5V/us，应出现SR限幅导致的高失真；同时输出6V超过swing 4V，可能饱和。",
+        "prediction": "预期 slew_utilization 接近或超过1，distortion 大幅超标，rail_occupancy 可能>0（输出峰值6V vs 轨4V）。若失真小且slew_utilization低则两机制均被反驳。",
+        "rationale": "大信号中频，SR与饱和可能共存，先确认失效存在再分离。",
+        "expected_pass": false,
+        "frequency_hz": 20000.0,
+        "amplitude_v": 0.15
+      },
+      "source": "deepseek",
+      "previous_hash": "b42b16ebef588bec00140d2a433086500688ae5ae9c3747660ddc3ff4440fc06",
+      "hash": "c08a00d3f9f60ce0fc89025b8026acf2bc4e6046485ef7943dde0098bd46aebd"
+    },
+    {
+      "seq": 7,
+      "time": "2026-10-25T04:01:00.349872+00:00",
+      "kind": "measurement",
+      "title": "发现失效",
+      "body": "增益误差 29.59%，残差失真 4.39%",
+      "measurement": {
+        "id": "6d3514663fb08508",
+        "experiment": {
+          "frequency_hz": 20000.0,
+          "amplitude_v": 0.15
+        },
+        "purpose": "压摆率：SR=0.5V/us，20kHz、输出峰值6V需斜率 2π·20k·6≈754V/ms=0.754V/us > 0.5V/us，应出现SR限幅导致的高失真；同时输出6V超过swing 4V，可能饱和。",
+        "expected_gain": 40.0,
+        "measured_gain": 28.163020303148905,
+        "gain_error": 0.2959244924212774,
+        "distortion": 0.04394534742091044,
+        "phase_deg": -32.21233585465045,
+        "output_peak_v": 3.9851562628923363,
+        "rail_occupancy": 0.30859375,
+        "slew_utilization": 1.0004067831347563,
+        "passed": false,
+        "margin": -4.918489848425548
+      },
+      "source": "ngspice",
+      "prediction_match": true,
+      "previous_hash": "c08a00d3f9f60ce0fc89025b8026acf2bc4e6046485ef7943dde0098bd46aebd",
+      "hash": "83d982b04e19ce72a62c754e06e382457cb32c8a7fbab0b23c9be4028a26fed4"
+    },
+    {
+      "seq": 8,
+      "time": "2026-10-25T04:01:04.047958+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "同频降幅值，单独剥离饱和与SR，检验失真是否由SR/饱和引起。",
+      "plan": {
+        "hypothesis": "SR对照：20kHz下把幅值降到0.05V，输出峰值2V<轨4V（无饱和），所需斜率 2π·20k·2=0.251V/us<0.5V/us（无SR限幅），仅剩带宽效应（20kHz接近37.5kHz带宽，增益略降）。",
+        "prediction": "预期 rail_occupancy=0、slew_utilization≈0.5、distortion 小（<0.01）；gain_error 约0.1~0.2（带宽导致），可能仍略超0.05。若失真仍大则SR解释被反驳。",
+        "rationale": "同频降幅值，单独剥离饱和与SR，检验失真是否由SR/饱和引起。",
+        "expected_pass": true,
+        "frequency_hz": 20000.0,
+        "amplitude_v": 0.05
+      },
+      "source": "deepseek",
+      "previous_hash": "83d982b04e19ce72a62c754e06e382457cb32c8a7fbab0b23c9be4028a26fed4",
+      "hash": "7d5302b408e59da1b329fc54ca056bf3aed0c7abfac70306f4b98f80a426723e"
+    },
+    {
+      "seq": 9,
+      "time": "2026-10-25T04:01:04.357754+00:00",
+      "kind": "measurement",
+      "title": "发现失效",
+      "body": "增益误差 11.87%，残差失真 0.00%",
+      "measurement": {
+        "id": "1207ed56ab8ad89a",
+        "experiment": {
+          "frequency_hz": 20000.0,
+          "amplitude_v": 0.05
+        },
+        "purpose": "SR对照：20kHz下把幅值降到0.05V，输出峰值2V<轨4V（无饱和），所需斜率 2π·20k·2=0.251V/us<0.5V/us（无SR限幅），仅剩带宽效应（20kHz接近37.5kHz带宽，增益略降）。",
+        "expected_gain": 40.0,
+        "measured_gain": 35.25140886276056,
+        "gain_error": 0.11871477843098588,
+        "distortion": 3.041096423157571e-05,
+        "phase_deg": -28.154161042313923,
+        "output_peak_v": 1.7626103212074467,
+        "rail_occupancy": 0.0,
+        "slew_utilization": 0.44431450047341814,
+        "passed": false,
+        "margin": -1.3742955686197176
+      },
+      "source": "ngspice",
+      "prediction_match": false,
+      "previous_hash": "7d5302b408e59da1b329fc54ca056bf3aed0c7abfac70306f4b98f80a426723e",
+      "hash": "66f6e860480d3efefc50b5725ee0667baad7c9092f3d9e276b7f89b55897973a"
+    },
+    {
+      "seq": 10,
+      "time": "2026-10-25T04:01:04.363759+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "同幅值降频，剥离SR，单独检验输出摆幅饱和。",
+      "plan": {
+        "hypothesis": "饱和对照：300Hz下幅值0.15V，输出峰值6V远超swing 4V，SR需求 2π·300·6=0.0113V/us 远低于0.5V/us，故只剩输出摆幅削顶。",
+        "prediction": "预期 rail_occupancy 明显>0、slew_utilization 很低、distortion 大（削顶）、gain_error 大（峰值被压到约4V）。若 rail_occupancy=0 则饱和解释被反驳。",
+        "rationale": "同幅值降频，剥离SR，单独检验输出摆幅饱和。",
+        "expected_pass": false,
+        "frequency_hz": 300.0,
+        "amplitude_v": 0.15
+      },
+      "source": "deepseek",
+      "previous_hash": "66f6e860480d3efefc50b5725ee0667baad7c9092f3d9e276b7f89b55897973a",
+      "hash": "458eb3a432aa8d1dcecd726fadaa74c4d0bf9098d7cd75ba28a30f1f1b16f032"
+    },
+    {
+      "seq": 11,
+      "time": "2026-10-25T04:01:04.370764+00:00",
+      "kind": "measurement",
+      "title": "发现失效",
+      "body": "增益误差 22.16%，残差失真 15.44%",
+      "measurement": {
+        "id": "ed9bc93438e09527",
+        "experiment": {
+          "frequency_hz": 300.0,
+          "amplitude_v": 0.15
+        },
+        "purpose": "饱和对照：300Hz下幅值0.15V，输出峰值6V远超swing 4V，SR需求 2π·300·6=0.0113V/us 远低于0.5V/us，故只剩输出摆幅削顶。",
+        "expected_gain": 40.0,
+        "measured_gain": 31.13699061662916,
+        "gain_error": 0.22157523458427097,
+        "distortion": 0.15444824047047684,
+        "phase_deg": -0.4581030833713522,
+        "output_peak_v": 3.9850614133632094,
+        "rail_occupancy": 0.546875,
+        "slew_utilization": 0.02268158032079051,
+        "passed": false,
+        "margin": -4.1482746823492285
+      },
+      "source": "ngspice",
+      "prediction_match": true,
+      "previous_hash": "458eb3a432aa8d1dcecd726fadaa74c4d0bf9098d7cd75ba28a30f1f1b16f032",
+      "hash": "5148de8f72f940b2dd07b32cd5a94fa52b3f78b01015ccec142a595c18da0c22"
+    },
+    {
+      "seq": 12,
+      "time": "2026-10-25T04:01:07.548517+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "小信号高频，细化带宽导致的增益误差边界。",
+      "plan": {
+        "hypothesis": "带宽边界：小信号下增益误差由闭环带宽37.5kHz决定，误差≈sqrt(1+(f/37.5k)^2)-1。15kHz时约0.077，仍略超；需更低频才通过。",
+        "prediction": "预期 gain_error 约0.07~0.08（略超0.05），distortion 极小，rail=0，slew_utilization 低。若 gain_error<0.05 则边界低于15kHz。",
+        "rationale": "小信号高频，细化带宽导致的增益误差边界。",
+        "expected_pass": true,
+        "frequency_hz": 15000.0,
+        "amplitude_v": 0.002
+      },
+      "source": "deepseek",
+      "previous_hash": "5148de8f72f940b2dd07b32cd5a94fa52b3f78b01015ccec142a595c18da0c22",
+      "hash": "4aa2d95801d67697d9193048a90f80f5cc175fe478c9d113d142440db252eee6"
+    },
+    {
+      "seq": 13,
+      "time": "2026-10-25T04:01:07.681047+00:00",
+      "kind": "measurement",
+      "title": "发现失效",
+      "body": "增益误差 7.24%，残差失真 0.00%",
+      "measurement": {
+        "id": "c7d2356b69816127",
+        "experiment": {
+          "frequency_hz": 15000.0,
+          "amplitude_v": 0.002
+        },
+        "purpose": "带宽边界：小信号下增益误差由闭环带宽37.5kHz决定，误差≈sqrt(1+(f/37.5k)^2)-1。15kHz时约0.077，仍略超；需更低频才通过。",
+        "expected_gain": 40.0,
+        "measured_gain": 37.104495237355614,
+        "gain_error": 0.07238761906610969,
+        "distortion": 3.0395725777216547e-05,
+        "phase_deg": -21.869080336711047,
+        "output_peak_v": 0.07420837315605781,
+        "rail_occupancy": 0.0,
+        "slew_utilization": 0.014032606408606927,
+        "passed": false,
+        "margin": -0.44775238132219375
+      },
+      "source": "ngspice",
+      "prediction_match": false,
+      "previous_hash": "4aa2d95801d67697d9193048a90f80f5cc175fe478c9d113d142440db252eee6",
+      "hash": "cfdd6040192ca6e7d691fe65cdedc87acc903954198461957486ba8ad5d08281"
+    },
+    {
+      "seq": 14,
+      "time": "2026-10-25T04:01:07.688031+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "低频大幅值，细化输出摆幅饱和的幅值边界。",
+      "plan": {
+        "hypothesis": "饱和边界：300Hz下输出峰值=40×0.09=3.6V<4V轨，应无削顶，失真小，增益误差小。",
+        "prediction": "预期 rail_occupancy=0、distortion<0.03、gain_error<0.05，通过。若仍削顶则边界低于0.09V。",
+        "rationale": "低频大幅值，细化输出摆幅饱和的幅值边界。",
+        "expected_pass": true,
+        "frequency_hz": 300.0,
+        "amplitude_v": 0.09
+      },
+      "source": "deepseek",
+      "previous_hash": "cfdd6040192ca6e7d691fe65cdedc87acc903954198461957486ba8ad5d08281",
+      "hash": "6b698723a61726b19ddcc45313d002eed41b912bf8a0ca51122bcb62b5e6aa3c"
+    },
+    {
+      "seq": 15,
+      "time": "2026-10-25T04:01:07.840354+00:00",
+      "kind": "measurement",
+      "title": "通过验收",
+      "body": "增益误差 0.05%，残差失真 0.00%",
+      "measurement": {
+        "id": "1e80a55808589361",
+        "experiment": {
+          "frequency_hz": 300.0,
+          "amplitude_v": 0.09
+        },
+        "purpose": "饱和边界：300Hz下输出峰值=40×0.09=3.6V<4V轨，应无削顶，失真小，增益误差小。",
+        "expected_gain": 40.0,
+        "measured_gain": 39.97994081364059,
+        "gain_error": 0.0005014796589852821,
+        "distortion": 3.0401991985319377e-05,
+        "phase_deg": -0.45992185296781796,
+        "output_peak_v": 3.5982292478809588,
+        "rail_occupancy": 0.0,
+        "slew_utilization": 0.013607796657213372,
+        "passed": true,
+        "margin": 0.9899704068202944
+      },
+      "source": "ngspice",
+      "prediction_match": true,
+      "previous_hash": "6b698723a61726b19ddcc45313d002eed41b912bf8a0ca51122bcb62b5e6aa3c",
+      "hash": "52be736ab722099bcc39a763b280a86e907dde163e4715cca009529830330121"
+    },
+    {
+      "seq": 16,
+      "time": "2026-10-25T04:01:10.052936+00:00",
+      "kind": "plan",
+      "title": "实验计划已登记",
+      "body": "在已确认的11~15kHz失败区间内取点，夹逼带宽增益误差边界。",
+      "plan": {
+        "hypothesis": "带宽边界细化：闭环带宽约37.5kHz，11kHz时增益误差≈sqrt(1+(11/37.5)^2)-1≈0.042<0.05，应通过；15kHz(0.072)失败，边界在11~15kHz之间。",
+        "prediction": "预期 gain_error≈0.04~0.045，distortion 极小，rail=0，通过。若仍>0.05 则边界低于11kHz。",
+        "rationale": "在已确认的11~15kHz失败区间内取点，夹逼带宽增益误差边界。",
+        "expected_pass": true,
+        "frequency_hz": 11000.0,
+        "amplitude_v": 0.002
+      },
+      "source": "deepseek",
+      "previous_hash": "52be736ab722099bcc39a763b280a86e907dde163e4715cca009529830330121",
+      "hash": "736893357e2440ccea79855b3f93d7650f20109f15f89309494be08f78de9c60"
+    },
+    {
+      "seq": 17,
+      "time": "2026-10-25T04:01:10.236933+00:00",
+      "kind": "measurement",
+      "title": "通过验收",
+      "body": "增益误差 4.11%，残差失真 0.00%",
+      "measurement": {
+        "id": "b6b47fc701b549e6",
+        "experiment": {
+          "frequency_hz": 11000.0,
+          "amplitude_v": 0.002
+        },
+        "purpose": "带宽边界细化：闭环带宽约37.5kHz，11kHz时增益误差≈sqrt(1+(11/37.5)^2)-1≈0.042<0.05，应通过；15kHz(0.072)失败，边界在11~15kHz之间。",
+        "expected_gain": 40.0,
+        "measured_gain": 38.354566847547055,
+        "gain_error": 0.041135828811323605,
+        "distortion": 3.0393330984280475e-05,
+        "phase_deg": -16.401106028468146,
+        "output_peak_v": 0.07670734730091477,
+        "rail_occupancy": 0.0,
+        "slew_utilization": 0.010638628037303964,
+        "passed": true,
+        "margin": 0.1772834237735279
+      },
+      "source": "ngspice",
+      "prediction_match": true,
+      "previous_hash": "736893357e2440ccea79855b3f93d7650f20109f15f89309494be08f78de9c60",
+      "hash": "2c8db9b371ca65cdbccac106c8f9eb1f1415c39d24201dd36d01c71f951434d7"
+    },
+    {
+      "seq": 18,
+      "time": "2026-10-25T04:01:10.239974+00:00",
+      "kind": "review",
+      "title": "实验记录审查完成",
+      "body": "形成 3 项机制审查记录。",
+      "source": "deterministic-review",
+      "previous_hash": "2c8db9b371ca65cdbccac106c8f9eb1f1415c39d24201dd36d01c71f951434d7",
+      "hash": "a61e80b8c09219b71cdce88e53fd362ce57fc1cb00562b9e37ab0307f3caeb4c"
+    },
+    {
+      "seq": 19,
+      "time": "2026-10-25T04:01:10.243981+00:00",
+      "kind": "complete",
+      "title": "研究完成",
+      "body": "可导出原始波形、模型计划、网表、日志和可重跑配置。",
+      "previous_hash": "a61e80b8c09219b71cdce88e53fd362ce57fc1cb00562b9e37ab0307f3caeb4c",
+      "hash": "8a3c2cafc4cfe7e3596656a36446d2bdd635439ff50fbce074d353a55dacb612"
+    }
+  ],
+  "measurements": [
+    {
+      "id": "4e17a898bb516d84",
+      "experiment": {
+        "frequency_hz": 1000.0,
+        "amplitude_v": 0.02
+      },
+      "purpose": "标称基线",
+      "expected_gain": 40.0,
+      "measured_gain": 39.96692557123698,
+      "gain_error": 0.0008268607190755617,
+      "distortion": 3.040071193374169e-05,
+      "phase_deg": -1.5327408346753308,
+      "output_peak_v": 0.7993510680459905,
+      "rail_occupancy": 0.0,
+      "slew_utilization": 0.010075579367200627,
+      "passed": true,
+      "margin": 0.9834627856184888
+    },
+    {
+      "id": "65827d2e2af34032",
+      "experiment": {
+        "frequency_hz": 100000.0,
+        "amplitude_v": 0.002
+      },
+      "purpose": "带宽/主极点：GBW=1.5MHz，闭环增益40，闭环带宽约37.5kHz；在100kHz小信号下增益应明显下降（约-8.5dB），相位滞后，失真小。",
+      "expected_gain": 40.0,
+      "measured_gain": 13.99729063678316,
+      "gain_error": 0.650067734080421,
+      "distortion": 3.0394121086071678e-05,
+      "phase_deg": -69.51754098759685,
+      "output_peak_v": 0.02799548644933614,
+      "rail_occupancy": 0.0,
+      "slew_utilization": 0.035287161419071705,
+      "passed": false,
+      "margin": -12.001354681608419
+    },
+    {
+      "id": "6d3514663fb08508",
+      "experiment": {
+        "frequency_hz": 20000.0,
+        "amplitude_v": 0.15
+      },
+      "purpose": "压摆率：SR=0.5V/us，20kHz、输出峰值6V需斜率 2π·20k·6≈754V/ms=0.754V/us > 0.5V/us，应出现SR限幅导致的高失真；同时输出6V超过swing 4V，可能饱和。",
+      "expected_gain": 40.0,
+      "measured_gain": 28.163020303148905,
+      "gain_error": 0.2959244924212774,
+      "distortion": 0.04394534742091044,
+      "phase_deg": -32.21233585465045,
+      "output_peak_v": 3.9851562628923363,
+      "rail_occupancy": 0.30859375,
+      "slew_utilization": 1.0004067831347563,
+      "passed": false,
+      "margin": -4.918489848425548
+    },
+    {
+      "id": "1207ed56ab8ad89a",
+      "experiment": {
+        "frequency_hz": 20000.0,
+        "amplitude_v": 0.05
+      },
+      "purpose": "SR对照：20kHz下把幅值降到0.05V，输出峰值2V<轨4V（无饱和），所需斜率 2π·20k·2=0.251V/us<0.5V/us（无SR限幅），仅剩带宽效应（20kHz接近37.5kHz带宽，增益略降）。",
+      "expected_gain": 40.0,
+      "measured_gain": 35.25140886276056,
+      "gain_error": 0.11871477843098588,
+      "distortion": 3.041096423157571e-05,
+      "phase_deg": -28.154161042313923,
+      "output_peak_v": 1.7626103212074467,
+      "rail_occupancy": 0.0,
+      "slew_utilization": 0.44431450047341814,
+      "passed": false,
+      "margin": -1.3742955686197176
+    },
+    {
+      "id": "ed9bc93438e09527",
+      "experiment": {
+        "frequency_hz": 300.0,
+        "amplitude_v": 0.15
+      },
+      "purpose": "饱和对照：300Hz下幅值0.15V，输出峰值6V远超swing 4V，SR需求 2π·300·6=0.0113V/us 远低于0.5V/us，故只剩输出摆幅削顶。",
+      "expected_gain": 40.0,
+      "measured_gain": 31.13699061662916,
+      "gain_error": 0.22157523458427097,
+      "distortion": 0.15444824047047684,
+      "phase_deg": -0.4581030833713522,
+      "output_peak_v": 3.9850614133632094,
+      "rail_occupancy": 0.546875,
+      "slew_utilization": 0.02268158032079051,
+      "passed": false,
+      "margin": -4.1482746823492285
+    },
+    {
+      "id": "c7d2356b69816127",
+      "experiment": {
+        "frequency_hz": 15000.0,
+        "amplitude_v": 0.002
+      },
+      "purpose": "带宽边界：小信号下增益误差由闭环带宽37.5kHz决定，误差≈sqrt(1+(f/37.5k)^2)-1。15kHz时约0.077，仍略超；需更低频才通过。",
+      "expected_gain": 40.0,
+      "measured_gain": 37.104495237355614,
+      "gain_error": 0.07238761906610969,
+      "distortion": 3.0395725777216547e-05,
+      "phase_deg": -21.869080336711047,
+      "output_peak_v": 0.07420837315605781,
+      "rail_occupancy": 0.0,
+      "slew_utilization": 0.014032606408606927,
+      "passed": false,
+      "margin": -0.44775238132219375
+    },
+    {
+      "id": "1e80a55808589361",
+      "experiment": {
+        "frequency_hz": 300.0,
+        "amplitude_v": 0.09
+      },
+      "purpose": "饱和边界：300Hz下输出峰值=40×0.09=3.6V<4V轨，应无削顶，失真小，增益误差小。",
+      "expected_gain": 40.0,
+      "measured_gain": 39.97994081364059,
+      "gain_error": 0.0005014796589852821,
+      "distortion": 3.0401991985319377e-05,
+      "phase_deg": -0.45992185296781796,
+      "output_peak_v": 3.5982292478809588,
+      "rail_occupancy": 0.0,
+      "slew_utilization": 0.013607796657213372,
+      "passed": true,
+      "margin": 0.9899704068202944
+    },
+    {
+      "id": "b6b47fc701b549e6",
+      "experiment": {
+        "frequency_hz": 11000.0,
+        "amplitude_v": 0.002
+      },
+      "purpose": "带宽边界细化：闭环带宽约37.5kHz，11kHz时增益误差≈sqrt(1+(11/37.5)^2)-1≈0.042<0.05，应通过；15kHz(0.072)失败，边界在11~15kHz之间。",
+      "expected_gain": 40.0,
+      "measured_gain": 38.354566847547055,
+      "gain_error": 0.041135828811323605,
+      "distortion": 3.0393330984280475e-05,
+      "phase_deg": -16.401106028468146,
+      "output_peak_v": 0.07670734730091477,
+      "rail_occupancy": 0.0,
+      "slew_utilization": 0.010638628037303964,
+      "passed": true,
+      "margin": 0.1772834237735279
+    }
+  ],
+  "map": null,
+  "repair": null,
+  "report": {
+    "simulations": 8,
+    "failures": 5,
+    "mechanisms": [
+      {
+        "key": "bandwidth",
+        "title": "带宽相关限制",
+        "status": "观测支持",
+        "description": "低失真情况下出现增益下降与相位滞后，与有限带宽一致。",
+        "evidence_ids": [
+          "65827d2e2af34032",
+          "1207ed56ab8ad89a",
+          "c7d2356b69816127"
+        ],
+        "limitation": "行为模型内的机制审查，不构成真实芯片唯一因果证明。"
+      },
+      {
+        "key": "slew",
+        "title": "压摆率相关限制",
+        "status": "证据不足",
+        "description": "当前实验未得到足够支持，不排除该机制。",
+        "evidence_ids": [],
+        "limitation": "行为模型内的机制审查，不构成真实芯片唯一因果证明。"
+      },
+      {
+        "key": "saturation",
+        "title": "输出摆幅限制",
+        "status": "对照支持",
+        "description": "输出多次接近模型输出轨，存在幅值压缩。",
+        "evidence_ids": [
+          "6d3514663fb08508",
+          "ed9bc93438e09527",
+          "1207ed56ab8ad89a"
+        ],
+        "limitation": "行为模型内的机制审查，不构成真实芯片唯一因果证明。"
+      }
+    ],
+    "prediction_checks": [
+      {
+        "run_id": "65827d2e2af34032",
+        "matched": true
+      },
+      {
+        "run_id": "6d3514663fb08508",
+        "matched": true
+      },
+      {
+        "run_id": "1207ed56ab8ad89a",
+        "matched": false
+      },
+      {
+        "run_id": "ed9bc93438e09527",
+        "matched": true
+      },
+      {
+        "run_id": "c7d2356b69816127",
+        "matched": false
+      },
+      {
+        "run_id": "1e80a55808589361",
+        "matched": true
+      },
+      {
+        "run_id": "b6b47fc701b549e6",
+        "matched": true
+      }
+    ],
+    "predictions_refuted": 2,
+    "first_counterexample": "65827d2e2af34032",
+    "limitations": [
+      "有限实验不能证明整个连续工作域正确。",
+      "通用行为模型不代表具体商业运放或流片结果。",
+      "残差失真包含数值误差，近阈值点需要步长复核。"
+    ],
+    "engine": "ngspice-47",
+    "review_method": "deterministic-evidence-rules-v1"
+  },
+  "provider_usage": {
+    "model": "deepseek-flash",
+    "calls": 4,
+    "prompt_tokens": 11847,
+    "completion_tokens": 1872,
+    "total_tokens": 13719
+  }
+}

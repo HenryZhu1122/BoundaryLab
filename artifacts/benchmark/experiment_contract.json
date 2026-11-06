@@ -1,0 +1,225 @@
+{
+  "budget": 8,
+  "limitations": [
+    "8 synthetic tasks only",
+    "single model run per task",
+    "circuit parameters visible to the model",
+    "normal cases not a continuous-domain proof"
+  ],
+  "metrics": [
+    "failure_found_within_budget",
+    "first_failure_index",
+    "observations_supporting_mechanisms",
+    "wall_time_s",
+    "tokens"
+  ],
+  "model_repeats": 1,
+  "random_seeds": [
+    17,
+    42,
+    93
+  ],
+  "tasks": [
+    {
+      "circuit": {
+        "cutoff_hz": 20000,
+        "device": {
+          "gbw_hz": 300000.0,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 20.0,
+          "swing_v": 8.0
+        },
+        "gain": 10,
+        "kind": "amplifier",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.02,
+        "amplitude_min_v": 0.002,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 150000.0,
+        "frequency_min_hz": 500.0,
+        "gain_error_limit": 0.05
+      },
+      "id": "bandwidth"
+    },
+    {
+      "circuit": {
+        "cutoff_hz": 20000,
+        "device": {
+          "gbw_hz": 40000000.0,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 0.1,
+          "swing_v": 12.0
+        },
+        "gain": 10,
+        "kind": "amplifier",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.15,
+        "amplitude_min_v": 0.02,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 20000.0,
+        "frequency_min_hz": 2000.0,
+        "gain_error_limit": 0.05
+      },
+      "id": "slew"
+    },
+    {
+      "circuit": {
+        "cutoff_hz": 20000,
+        "device": {
+          "gbw_hz": 20000000.0,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 20.0,
+          "swing_v": 2.0
+        },
+        "gain": 10,
+        "kind": "amplifier",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.7,
+        "amplitude_min_v": 0.05,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 3000.0,
+        "frequency_min_hz": 100.0,
+        "gain_error_limit": 0.05
+      },
+      "id": "saturation"
+    },
+    {
+      "circuit": {
+        "cutoff_hz": 20000,
+        "device": {
+          "gbw_hz": 800000,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 0.3,
+          "swing_v": 4
+        },
+        "gain": 10,
+        "kind": "amplifier",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.8,
+        "amplitude_min_v": 0.005,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 200000,
+        "frequency_min_hz": 500,
+        "gain_error_limit": 0.05
+      },
+      "id": "combined"
+    },
+    {
+      "circuit": {
+        "cutoff_hz": 20000,
+        "device": {
+          "gbw_hz": 8000000.0,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 8.0,
+          "swing_v": 4
+        },
+        "gain": 10,
+        "kind": "amplifier",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.05,
+        "amplitude_min_v": 0.002,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 3000.0,
+        "frequency_min_hz": 100.0,
+        "gain_error_limit": 0.05
+      },
+      "id": "normal_amplifier"
+    },
+    {
+      "circuit": {
+        "cutoff_hz": 20000.0,
+        "device": {
+          "gbw_hz": 800000,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 0.3,
+          "swing_v": 4
+        },
+        "gain": 10.0,
+        "kind": "lowpass",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.8,
+        "amplitude_min_v": 0.005,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 200000.0,
+        "frequency_min_hz": 500.0,
+        "gain_error_limit": 0.05
+      },
+      "id": "lowpass"
+    },
+    {
+      "circuit": {
+        "cutoff_hz": 2000.0,
+        "device": {
+          "gbw_hz": 20000000.0,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 20.0,
+          "swing_v": 4
+        },
+        "gain": 2.0,
+        "kind": "lowpass",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.1,
+        "amplitude_min_v": 0.002,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 10000.0,
+        "frequency_min_hz": 100.0,
+        "gain_error_limit": 0.05
+      },
+      "id": "normal_lowpass"
+    },
+    {
+      "circuit": {
+        "cutoff_hz": 20000,
+        "device": {
+          "gbw_hz": 1500000.0,
+          "name": "BL-01 / 通用低功耗模型",
+          "open_loop_gain": 100000,
+          "output_resistance_ohm": 30,
+          "slew_v_us": 0.5,
+          "swing_v": 4
+        },
+        "gain": 40.0,
+        "kind": "amplifier",
+        "load_ohm": 10000
+      },
+      "contract": {
+        "amplitude_max_v": 0.15,
+        "amplitude_min_v": 0.002,
+        "distortion_limit": 0.03,
+        "frequency_max_hz": 100000.0,
+        "frequency_min_hz": 300.0,
+        "gain_error_limit": 0.05
+      },
+      "id": "high_gain"
+    }
+  ],
+  "version": "boundarylab-small-v1"
+}

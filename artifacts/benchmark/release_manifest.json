@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "captured_utc": "2026-10-25T04:29:35.156801+00:00",
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "seed": 42,
+  "git": {
+    "available": false
+  },
+  "packages": {
+    "Pygments": "2.21.0",
+    "annotated-doc": "0.0.5",
+    "annotated-types": "0.8.0",
+    "anyio": "4.15.1",
+    "backports.zstd": "1.8.0",
+    "brotli": "1.2.1",
+    "certifi": "2026.10.23",
+    "click": "8.5.0",
+    "colorama": "0.4.6",
+    "contourpy": "1.4.0",
+    "cycler": "0.12.1",
+    "fastapi": "0.162.0",
+    "fonttools": "4.67.0",
+    "h11": "0.16.0",
+    "httpcore": "1.0.9",
+    "httpx": "0.28.1",
+    "idna": "3.20",
+    "inflate64": "1.0.4",
+    "iniconfig": "2.3.1",
+    "kiwisolver": "1.5.1",
+    "matplotlib": "3.11.2",
+    "multivolumefile": "0.2.3",
+    "numpy": "2.5.4",
+    "opentelemetry-api": "1.45.1",
+    "packaging": "26.3",
+    "pillow": "13.0.0",
+    "pip": "25.0.1",
+    "pluggy": "1.7.0",
+    "psutil": "7.2.2",
+    "py7zr": "1.1.4",
+    "pybcj": "1.0.8",
+    "pycryptodomex": "3.24.1",
+    "pydantic": "2.14.1",
+    "pydantic_core": "2.50.1",
+    "pyparsing": "3.3.3",
+    "pyppmd": "1.3.1",
+    "pytest": "9.1.1",
+    "python-dateutil": "3.0.0",
+    "python-dotenv": "1.2.4",
+    "scipy": "1.18.1",
+    "six": "1.17.0",
+    "starlette": "1.10.0",
+    "texttable": "1.7.2",
+    "typing-inspection": "0.4.4",
+    "typing_extensions": "4.16.0",
+    "tzdata": "2026.5",
+    "uvicorn": "0.54.0"
+  },
+  "artifacts": [
+    {
+      "path": "lab/engine.py",
+      "bytes": 8844,
+      "sha256": "693d8c0bd73889410e6621183622f1ed46cadb913de97bb7d0a26a4208eedbb5"
+    },
+    {
+      "path": "lab/research.py",
+      "bytes": 24634,
+      "sha256": "957af85b480766498a84959bbd7e0fea5af874893d1e4a073c0b19cac9962a9d"
+    },
+    {
+      "path": "lab/provider.py",
+      "bytes": 7284,
+      "sha256": "d6910818e7e12b02e87225f7a0cb495305f7778d262c6dbaf3a5a2cb0e872105"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 116,
+      "sha256": "d6b5ac736bd403a9ecf7ca37e54fa475eb2f74e068ee40579454d838a81231eb"
+    }
+  ]
+}

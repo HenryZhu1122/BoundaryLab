@@ -1,0 +1,26 @@
+
+Note: No compatibility mode selected!
+
+
+Circuit: boundarylab generic nonideal opamp / bl-opamp-1.1
+
+Doing analysis at TEMP = 27.000000 and TNOM = 27.000000
+
+Using SPARSE 1.3 as Direct Linear Solver
+
+Initial Transient Solution
+--------------------------
+
+Node                                   Voltage
+----                                   -------
+in                                           0
+dom                                          0
+fb                                           0
+drive                                        0
+out                                          0
+brail#branch                                 0
+vin#branch                                   0
+
+
+No. of Data Rows : 3601
+ngspice-47 done

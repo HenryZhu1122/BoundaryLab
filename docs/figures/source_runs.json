@@ -1,0 +1,10 @@
+{
+  "featured_study": "20261025-120344-635c24",
+  "waveform_comparison": {
+    "before": "168e486b4db0b062",
+    "after": "c02770b154af41ab",
+    "frequency_hz": 50000,
+    "amplitude_v": 0.2
+  },
+  "note": "补充波形对照为真实 ngspice 运行，不计入 Agent 搜索预算或搜索评测。"
+}

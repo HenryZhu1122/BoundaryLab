@@ -1,0 +1,22 @@
+{
+  "circuit": {
+    "kind": "amplifier",
+    "gain": 10.0,
+    "cutoff_hz": 20000.0,
+    "load_ohm": 10000.0,
+    "device": {
+      "name": "BL-02 / 高速候选行为模型",
+      "gbw_hz": 6200000,
+      "slew_v_us": 2.2,
+      "swing_v": 4,
+      "open_loop_gain": 100000,
+      "output_resistance_ohm": 30
+    }
+  },
+  "experiment": {
+    "frequency_hz": 200000.0,
+    "amplitude_v": 0.2899118654710782
+  },
+  "refinement": 1,
+  "model_version": "bl-opamp-1.1"
+}

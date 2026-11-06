@@ -1,0 +1,27 @@
+{
+  "automated_tests": 18,
+  "test_command": "python -m pytest -q",
+  "test_result": "18 passed",
+  "browser_checks": [
+    "desktop map selection",
+    "waveform evidence",
+    "netlist dialog",
+    "candidate toggle",
+    "report",
+    "method page",
+    "mobile no horizontal overflow",
+    "live lowpass investigation"
+  ],
+  "selected_study": "20261025-120344-635c24",
+  "frozen_benchmark_records": 48,
+  "selected_search_replay": "10 measurements; gain and distortion deltas all 0",
+  "pdf_pages": 8,
+  "pdf_visual_qa": "all eight pages rendered and inspected; no clipping, overlap or missing Chinese glyphs",
+  "video": "1600x1000 H.264/AAC; full decode passed; frames inspected",
+  "release_deviations": [
+    "Input numeric normalization for stable cache identity",
+    "Windows atomic-save retry",
+    "same-experiment thread lock"
+  ],
+  "submission_status": "prepared only; participant will submit"
+}

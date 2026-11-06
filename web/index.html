@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1118">
+  <title>芯界 BoundaryLab · 自主电路科研工作台</title>
+  <link rel="icon" href="/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="/" aria-label="芯界首页"><img src="/mark.svg" alt=""><span>芯界<span class="brand-en">BOUNDARYLAB</span></span></a>
+    <div class="workspace-label">RESEARCH WORKSPACE <span>01</span></div>
+    <nav>
+      <button class="nav active" data-view="workbench"><span class="nav-icon">◈</span>实验工作台<span class="nav-key">⌘ 1</span></button>
+      <button class="nav" data-view="report"><span class="nav-icon">▤</span>证据与报告</button>
+      <button class="nav" data-view="about"><span class="nav-icon">⌁</span>研究方法</button>
+    </nav>
+    <div class="history-heading">研究记录<button id="refresh-history" title="刷新记录" aria-label="刷新记录">↻</button></div>
+    <div id="history" class="history"><p class="muted">还没有研究记录</p></div>
+    <div class="sidebar-bottom"><span class="live-dot"></span><div>本地研究环境<small id="engine-label">正在检查仿真器…</small></div><span class="version">v1.0</span></div>
+  </aside>
+
+  <div class="shell">
+    <header class="topbar"><div class="breadcrumb">芯界 <span>/</span> <strong id="view-title">实验工作台</strong></div><div class="top-actions"><span class="engine-pill"><i></i> ngspice 47</span><button id="export-top" class="button ghost" disabled>↓ 导出证据包</button></div></header>
+    <main id="workbench" class="view active">
+      <section class="intro"><div><div class="eyebrow"><span></span> AGENTIC CIRCUIT RESEARCH</div><h1>探索电路的<span>有效边界</span><span class="title-dot">.</span></h1><p>从性能主张出发，让智能体提出假设、选择实验，并用测量修正判断。</p></div><div class="intro-badge"><span class="orbit">◉</span><div>让结论拥有证据<small>Hypothesis → Experiment → Evidence</small></div></div></section>
+
+      <div class="workspace-grid">
+        <div class="research-area">
+          <section class="metric-grid">
+            <div class="metric"><span class="metric-label">搜索实验 <span>↗</span></span><div class="metric-value" id="metric-runs">—<small>次</small></div><p id="metric-runs-note">等待研究启动</p></div>
+            <div class="metric"><span class="metric-label">已发现失效 <span class="amber">◌</span></span><div class="metric-value amber" id="metric-fails">—<small>个</small></div><p>依据冻结验收合同判定</p></div>
+            <div class="metric"><span class="metric-label">网格通过比例 <span>▦</span></span><div class="metric-value" id="metric-coverage">—<small>%</small></div><p id="metric-coverage-note">独立离散采样验证</p></div>
+            <div class="metric"><span class="metric-label">候选修复 <span class="mint">↗</span></span><div class="metric-value mint" id="metric-repair">—<small>个</small></div><p id="metric-repair-note">保持原目标与输出摆幅</p></div>
+          </section>
+
+          <section class="panel map-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">OPERATING DOMAIN</div><h2>工作域地图 <span class="tag" id="map-count">尚未测量</span></h2></div><div class="segmented" id="map-switch"><button class="active" data-map="before">原始设计</button><button data-map="after" disabled>候选设计</button></div></div>
+            <div class="map-legend"><span><i class="legend-dot mint-bg"></i>通过</span><span><i class="legend-dot amber-bg"></i>失效</span><span><i class="legend-ring"></i>Agent 搜索点</span><span class="legend-tail">输入正弦峰值 × 频率 · 对数坐标</span></div>
+            <div id="domain-map" class="domain-map"><div class="empty-map"><div class="empty-icon">⌖</div><h3>从一个问题，开始一场实验</h3><p>设置研究对象后启动 Agent。<br>每个测量点都能追溯到原始波形与网表。</p></div></div>
+            <div class="panel-foot"><span><i class="tiny-square"></i> 仅显示已测点；空白区域尚未验证。</span><span id="map-selection">点击测量点查看证据 ↗</span></div>
+          </section>
+
+          <section class="panel wave-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">MEASUREMENT EVIDENCE</div><h2>波形证据 <span id="wave-status" class="tag">等待选择</span></h2></div><button id="show-netlist" class="text-button" disabled>查看网表 ↗</button></div>
+            <div id="wave-meta" class="wave-meta"><span>选择一个实验，检查它的原始输出。</span></div>
+            <div id="waveform" class="waveform"><div class="empty-wave">测量结果将显示在这里<span>输出与输入来自 ngspice 瞬态仿真</span></div></div>
+            <div class="wave-legend"><span><i class="line mint-bg"></i>实测输出</span><span><i class="line blue-bg"></i>输入</span><span id="ideal-legend"><i class="line dashed"></i>理想增益参考</span><span id="run-id" class="mono"></span></div>
+          </section>
+
+          <section class="panel timeline-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">RESEARCH TRAJECTORY</div><h2>实验轨迹</h2></div><span id="trajectory-badge" class="tag">预测先于测量</span></div>
+            <div id="timeline" class="timeline"><div class="empty-trajectory"><span>01</span><p>Agent 将在每次测量前登记假设和预测，<br>根据工具结果选择后续实验。</p></div></div>
+          </section>
+        </div>
+
+        <aside class="control-area">
+          <section class="panel setup-panel">
+            <div class="panel-heading"><div><div class="panel-kicker">INVESTIGATION SETUP</div><h2>研究设置</h2></div><span class="setup-step">01 — 03</span></div>
+            <div class="form-body">
+              <label class="field-label" for="preset">01 <span>选择研究对象</span></label>
+              <select id="preset"><option value="amplifier">精密放大器</option><option value="lowpass">有源低通滤波器</option></select>
+              <div class="circuit-preview" id="circuit-preview"></div>
+              <div id="device-spec" class="device-spec"></div>
+              <label class="field-label" for="question">02 <span>提出研究问题</span></label>
+              <textarea id="question" rows="4">找出该设计在频率与输入幅值变化时的失效边界。请用对照实验区分带宽、压摆率和输出摆幅限制。</textarea>
+              <details class="contract-details" open><summary>验收合同 <span>可编辑</span></summary><div class="form-grid">
+                <label>频率下限 / Hz<input id="fmin" type="number" value="500" min="50" step="100"></label>
+                <label>频率上限 / Hz<input id="fmax" type="number" value="200000" min="100" step="1000"></label>
+                <label>幅值下限 / V<input id="amin" type="number" value="0.005" min="0.001" step="0.001"></label>
+                <label>幅值上限 / V<input id="amax" type="number" value="0.8" min="0.002" step="0.05"></label>
+                <label>增益误差上限 / %<input id="gain-limit" type="number" value="5" min="0.5" max="50" step="0.5"></label>
+                <label>残差失真上限 / %<input id="dist-limit" type="number" value="3" min="0.2" max="30" step="0.5"></label>
+              </div></details>
+              <label class="field-label" for="mode">03 <span>执行方式与预算</span></label>
+              <select id="mode"><option value="deepseek">DeepSeek · 自主工具调用</option><option value="local">本地策略 · 非大模型</option></select>
+              <div id="provider-note" class="provider-note"><i></i><span>正在检查 API 配置…</span></div>
+              <div class="budget-row"><label for="budget">Agent 搜索预算</label><span><input id="budget" type="number" value="10" min="4" max="24"> 次</span></div>
+              <label class="toggle-row"><span>独立网格验证 <small>原设计 165 点，候选另计</small></span><input id="build-map" type="checkbox" checked><i class="toggle"></i></label>
+              <label class="toggle-row"><span>候选修改与回归 <small>检查改善，同时记录退化</small></span><input id="auto-repair" type="checkbox" checked><i class="toggle"></i></label>
+              <button id="start" class="button primary"><span>启动自主研究</span><span>↗</span></button>
+              <button id="cancel" class="button danger" hidden>停止当前研究</button>
+              <p class="model-disclosure">采用通用行为运放模型。测量结论限于所选模型与验收条件。</p>
+            </div>
+          </section>
+          <section class="panel status-panel"><div class="status-top"><span id="status-dot" class="status-dot"></span><strong id="status-title">准备就绪</strong><span id="elapsed">—</span></div><p id="status-body">等待一个值得检验的主张。</p><div class="progress-track"><div id="progress-bar"></div></div><div id="usage" class="usage">真实工具 · 可追溯记录 · 可重复运行</div></section>
+          <section class="principle-card"><span>THE RESEARCH PRINCIPLE</span><p>一个漂亮的解释，<br>需要一个能检验它的实验。</p><div>证据不足时，保留不确定性。<span>↗</span></div></section>
+        </aside>
+      </div>
+      <footer class="footer"><span>芯界 BoundaryLab · 智绘芯生，AI 赋能</span><span>专业学习 / 科研辅助 · 赛道一</span></footer>
+    </main>
+
+    <main id="report" class="view"><section class="intro"><div><div class="eyebrow"><span></span> EVIDENCE FIRST</div><h1>从观测，到<span>可检查的结论</span>.</h1><p>保留实验条件、原始数据与未解决的问题。</p></div></section><div id="report-content" class="report-content"><div class="panel report-empty">启动并完成一次研究后，这里会生成证据审查与修改报告。</div></div></main>
+
+    <main id="about" class="view"><section class="intro"><div><div class="eyebrow"><span></span> METHOD & PROVENANCE</div><h1>把研究过程，<span>交给实验检验</span>.</h1><p>芯界的能力、方法与结论边界。</p></div></section><div class="about-grid">
+      <article class="panel prose"><div class="panel-kicker">THE LOOP</div><h2>主张 → 实验 → 证据 → 修正</h2><p>智能体依据验收合同提出实验，在看到结果前登记假设与预测。工具运行 ngspice，计算增益误差、残差失真、相位与输出斜率。新观测返回模型，决定接下来的测量。</p><p>每次工具调用都经过数值范围与输入域检查。目标增益和验收阈值不会在运行中被修改。模型请求失败会明确停止，不会伪装成成功的大模型研究。</p><h3>三个独立角色</h3><ul><li>研究员：DeepSeek 原生工具调用，决定搜索实验。</li><li>实验台：ngspice 47，执行公开网表。</li><li>审查器：冻结的确定性指标和机制证据规则。</li></ul></article>
+      <article class="panel prose"><div class="panel-kicker">MODEL CARD</div><h2>透明的通用行为模型</h2><p>运放模型具有有限开环增益、单主极点、压摆率限制、输出摆幅与抗积分饱和。低通案例增加输入 RC 网络。它用于研究和教学，不代表具体商业器件、工艺角或真实测量。</p><p>残差失真 = 移除直流与基波后的残差 RMS / 基波 RMS。瞬态数据在最后四个周期内均匀重采样并拟合。此指标包含数值误差，与仅统计谐波的 THD 有区别。</p><p>工作域比例仅指固定对数网格的通过点比例；不等于连续面积或器件良率。机制记录表示观测或对照支持，不表示唯一因果证明。</p></article>
+      <article class="panel prose"><div class="panel-kicker">DESIGN VALIDATION</div><h2>候选改善也需要复测</h2><p>在线模式由 DeepSeek 依据实验提出 GBW 与 SR 参数候选，保持目标增益、验收标准和输出摆幅。本地模式使用明确标注的固定候选。对原实验回归，并在独立网格检查有效范围变化。无法修复的饱和边界会保留。</p><p>候选模型还需要真实器件选择、功耗与稳定性验证才能进入工程设计。软件不会据此声称已完成芯片签核。</p></article>
+      <article class="panel prose"><div class="panel-kicker">RESEARCH SOURCES</div><h2>方法来源与自主实现</h2><p>本作品自主实现实验编排、证据审查、工作域可视化与导出。研究启发包括：</p><ul><li><a href="https://arxiv.org/abs/2609.20752" target="_blank" rel="noreferrer">LLM-Falsifier</a>：带数值反馈的反例搜索。</li><li><a href="https://arxiv.org/abs/2610.11253" target="_blank" rel="noreferrer">LLM-IDEA</a>：可辨识性与实验选择。</li><li><a href="https://arxiv.org/abs/2603.23910" target="_blank" rel="noreferrer">AnalogAgent</a>：工具驱动的模拟电路设计。</li><li><a href="https://ngspice.sourceforge.io/" target="_blank" rel="noreferrer">ngspice</a>：开源仿真执行器。</li></ul><p>前沿方法启发不等于已复现其论文结果；作品实际效果以所附评测记录为准。</p></article>
+    </div></main>
+  </div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <dialog id="netlist-dialog"><div class="dialog-heading"><h2>本次实验网表</h2><button id="close-dialog" aria-label="关闭">×</button></div><pre id="netlist-text"></pre><p>ngspice 运行目录内同时保存原始数据、配置与日志。</p></dialog>
+  <script src="/app.js" defer></script>
+</body>
+</html>
